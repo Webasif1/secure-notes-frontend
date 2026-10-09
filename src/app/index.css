@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+/* dark mode is turned on with the "dark" class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* design tokens (light) */
+:root {
+  --app-bg: #f8fafc;
+  --app-surface: #ffffff;
+  --app-subtle: #f1f5f9;
+  --app-text: #111827;
+  --app-muted: #6b7280;
+  --app-border: #e5e7eb;
+  --app-primary: #635bff;
+  --app-primary-hover: #5145e5;
+  --app-primary-soft: #eeedff;
+  --app-success: #16a34a;
+  --app-danger: #dc2626;
+  --app-danger-soft: #fef2f2;
+  color-scheme: light;
+}
+
+/* design tokens (dark) */
+.dark {
+  --app-bg: #0b0d12;
+  --app-surface: #12151c;
+  --app-subtle: #1a1e27;
+  --app-text: #f3f4f6;
+  --app-muted: #9ca3af;
+  --app-border: #262b36;
+  --app-primary: #7c75ff;
+  --app-primary-hover: #8f89ff;
+  --app-primary-soft: #1f1d3d;
+  --app-success: #22c55e;
+  --app-danger: #f87171;
+  --app-danger-soft: #2a1515;
+  color-scheme: dark;
+}
+
+/* make the tokens usable as tailwind classes: bg-surface, text-muted ... */
+@theme inline {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-bg: var(--app-bg);
+  --color-surface: var(--app-surface);
+  --color-subtle: var(--app-subtle);
+  --color-text: var(--app-text);
+  --color-muted: var(--app-muted);
+  --color-border: var(--app-border);
+  --color-primary: var(--app-primary);
+  --color-primary-hover: var(--app-primary-hover);
+  --color-primary-soft: var(--app-primary-soft);
+  --color-success: var(--app-success);
+  --color-danger: var(--app-danger);
+  --color-danger-soft: var(--app-danger-soft);
+}
+
+html,
+body {
+  background: var(--app-bg);
+  color: var(--app-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* visible keyboard focus everywhere */
+:focus-visible {
+  outline: 2px solid var(--app-primary);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--app-primary-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
