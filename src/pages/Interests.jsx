@@ -3,7 +3,7 @@ import Pagination from '../components/Pagination.jsx';
 
 // Scenario 1: GET /api/users/interests (single aggregate() call)
 export default function Interests() {
-  const { data, meta, error, setPage } = usePaged('/users/interests', 10);
+  const { data, meta, error, setPage } = usePaged('/users/interests', 'groups', 10);
 
   return (
     <>

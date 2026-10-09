@@ -52,7 +52,7 @@ function NoteItem({ note, onChanged }) {
 }
 
 export default function Notes() {
-  const { data, meta, error, setPage, reload } = usePaged('/notes', 5);
+  const { data, meta, error, setPage, reload } = usePaged('/notes', 'notes', 5);
   const [form, setForm] = useState({ title: '', content: '' });
   const [formError, setFormError] = useState('');
 

@@ -9,7 +9,7 @@ const emptyForm = { name: '', email: '', password: '', role: 'user', interests: 
 
 export default function AdminUsers() {
   const { user: me } = useAuth();
-  const { data, meta, error, setPage, reload } = usePaged('/users', 10);
+  const { data, meta, error, setPage, reload } = usePaged('/users', 'users', 10);
   const [form, setForm] = useState(emptyForm);
   const [editingId, setEditingId] = useState(null);
   const [formError, setFormError] = useState('');
@@ -102,7 +102,7 @@ export default function AdminUsers() {
               <td>{u.interests.join(', ')}</td>
               <td>
                 <button onClick={() => startEdit(u)}>Edit</button>{' '}
-                {u._id !== me._id && <button onClick={() => remove(u)}>Delete</button>}{' '}
+                {u._id !== me.id && <button onClick={() => remove(u)}>Delete</button>}{' '}
                 <Link to={`/admin/notes?owner=${u._id}`}>Notes</Link>{' '}
                 <Link to={`/users/${u._id}/posts`}>Posts</Link>
               </td>

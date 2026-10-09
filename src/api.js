@@ -1,4 +1,4 @@
-const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace(/\/$/, '');
+const BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:3000/api').replace(/\/$/, '');
 const TOKEN_KEY = 'secure-notes-token';
 
 export const tokenStore = {
@@ -24,8 +24,7 @@ export async function api(path, { method = 'GET', body } = {}) {
       tokenStore.clear();
       window.dispatchEvent(new Event('auth:logout'));
     }
-    const detail = json.details?.map((d) => `${d.field}: ${d.message}`).join(', ');
-    throw new Error(detail ? `${json.message} (${detail})` : json.message || 'Request failed');
+    throw new Error(json.message || 'Request failed');
   }
   return json;
 }

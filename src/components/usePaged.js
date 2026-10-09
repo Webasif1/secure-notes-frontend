@@ -1,22 +1,25 @@
 import { useCallback, useEffect, useState } from 'react';
 import { api } from '../api.js';
 
-/** Loads a paginated endpoint. `path` may already contain a query string. */
-export function usePaged(path, limit = 10) {
+/**
+ * Loads a paginated endpoint. `path` may already contain a query string.
+ * `key` is the field of the response that holds the list (notes, users, ...).
+ */
+export function usePaged(path, key, limit = 10) {
   const [page, setPage] = useState(1);
-  const [result, setResult] = useState({ data: [], meta: null });
+  const [result, setResult] = useState({ data: [], meta: null, response: null });
   const [error, setError] = useState('');
 
   const reload = useCallback(async () => {
     try {
       const sep = path.includes('?') ? '&' : '?';
       const res = await api(`${path}${sep}page=${page}&limit=${limit}`);
-      setResult(res);
+      setResult({ data: res[key] || [], meta: res.pagination, response: res });
       setError('');
     } catch (err) {
       setError(err.message);
     }
-  }, [path, page, limit]);
+  }, [path, key, page, limit]);
 
   useEffect(() => {
     reload();

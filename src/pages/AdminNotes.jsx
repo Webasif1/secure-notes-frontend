@@ -5,7 +5,7 @@ import Pagination from '../components/Pagination.jsx';
 export default function AdminNotes() {
   const [params] = useSearchParams();
   const owner = params.get('owner');
-  const { data, meta, error, setPage } = usePaged(owner ? `/notes/all?owner=${owner}` : '/notes/all', 10);
+  const { data, meta, error, setPage } = usePaged(owner ? `/notes/all?owner=${owner}` : '/notes/all', 'notes', 10);
 
   return (
     <>

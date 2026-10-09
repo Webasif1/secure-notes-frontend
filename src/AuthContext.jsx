@@ -1,6 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { api, tokenStore } from './api.js';
 
+// login returns user.id, get-me returns the user document with _id
+const normalize = (user) => ({ ...user, id: user.id || user._id });
+
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
@@ -9,8 +12,8 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (tokenStore.get()) {
-      api('/auth/me')
-        .then((res) => setUser(res.data))
+      api('/auth/get-me')
+        .then((res) => setUser(normalize(res.user)))
         .catch(() => tokenStore.clear())
         .finally(() => setLoading(false));
     }
@@ -21,17 +24,18 @@ export function AuthProvider({ children }) {
 
   const authenticate = async (path, body) => {
     const res = await api(path, { method: 'POST', body });
-    tokenStore.set(res.data.token);
-    setUser(res.data.user);
+    tokenStore.set(res.token);
+    setUser(normalize(res.user));
   };
 
   const value = {
     user,
-    setUser,
+    setUser: (u) => setUser(normalize(u)),
     loading,
     login: (body) => authenticate('/auth/login', body),
     register: (body) => authenticate('/auth/register', body),
     logout: () => {
+      api('/auth/logout', { method: 'POST' }).catch(() => {});
       tokenStore.clear();
       setUser(null);
     },

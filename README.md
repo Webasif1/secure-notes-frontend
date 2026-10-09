@@ -28,7 +28,7 @@ Admin links are hidden for normal users, and the backend enforces every permissi
 git clone <this repo>
 cd secure-notes-frontend
 npm install
-cp .env.example .env     # VITE_API_URL=http://localhost:5000/api
+cp .env.example .env     # VITE_API_URL=http://localhost:3000/api
 npm run dev              # http://localhost:5173
 ```
 

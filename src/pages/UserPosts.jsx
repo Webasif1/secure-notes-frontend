@@ -5,17 +5,17 @@ import Pagination from '../components/Pagination.jsx';
 // Scenario 2: GET /api/posts/user/:userId (single aggregation with $lookup)
 export default function UserPosts() {
   const { userId } = useParams();
-  const { data, meta, error, setPage } = usePaged(`/posts/user/${userId}`, 5);
+  const { data: posts, meta, response, error, setPage } = usePaged(`/posts/user/${userId}`, 'posts', 5);
 
   return (
     <>
       <p>
         <Link to="/posts">&larr; All posts</Link>
       </p>
-      <h2>Posts by {data?.user?.name ?? '...'}</h2>
+      <h2>Posts by {response?.user?.name ?? '...'}</h2>
       {error && <p className="error">{error}</p>}
       <ul className="list">
-        {data?.posts?.map((post) => (
+        {posts.map((post) => (
           <li className="card" key={post._id}>
             <h3>{post.title}</h3>
             <p className="pre">{post.body}</p>
@@ -23,7 +23,7 @@ export default function UserPosts() {
           </li>
         ))}
       </ul>
-      {data?.posts?.length === 0 && <p>This user has no posts.</p>}
+      {response && posts.length === 0 && <p>This user has no posts.</p>}
       <Pagination meta={meta} onChange={setPage} />
     </>
   );

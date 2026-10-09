@@ -15,8 +15,8 @@ export default function Profile() {
     try {
       const body = { name: form.name, interests: splitList(form.interests) };
       if (form.password) body.password = form.password;
-      const res = await api('/auth/me', { method: 'PATCH', body });
-      setUser(res.data);
+      const res = await api('/auth/get-me', { method: 'PATCH', body });
+      setUser(res.user);
       setForm({ ...form, password: '' });
       setMessage('Profile saved.');
     } catch (err) {

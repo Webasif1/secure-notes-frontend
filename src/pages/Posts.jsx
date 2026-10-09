@@ -7,7 +7,7 @@ import Pagination from '../components/Pagination.jsx';
 
 export default function Posts() {
   const { user } = useAuth();
-  const { data, meta, error, setPage, reload } = usePaged('/posts', 5);
+  const { data, meta, error, setPage, reload } = usePaged('/posts', 'posts', 5);
   const [form, setForm] = useState({ title: '', body: '' });
   const [actionError, setActionError] = useState('');
 
@@ -59,7 +59,7 @@ export default function Posts() {
               {post.author ? <Link to={`/users/${post.author._id}/posts`}>{post.author.name}</Link> : 'deleted user'} ·{' '}
               {new Date(post.createdAt).toLocaleString()}
             </small>
-            {user && (user.role === 'admin' || user._id === post.author?._id) && (
+            {user && (user.role === 'admin' || user.id === post.author?._id) && (
               <div>
                 <button onClick={() => remove(post._id)}>Delete</button>
               </div>
