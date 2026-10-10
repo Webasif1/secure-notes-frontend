@@ -19,7 +19,7 @@ export default defineConfig({
     // in development "/api" requests go to the backend
     proxy: {
       "/api": {
-        target: "http://localhost:3000",
+        target: "https://secure-notes-backend-uk39.onrender.com/ ||  http://localhost:3000 ",
         changeOrigin: true,
       },
     },
