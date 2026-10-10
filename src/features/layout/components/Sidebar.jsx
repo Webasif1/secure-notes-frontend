@@ -6,8 +6,6 @@ import {
   Users,
   LayoutDashboard,
   Files,
-  Newspaper,
-  Tags,
   LogOut,
   PanelLeftClose,
   PanelLeftOpen,
@@ -133,10 +131,6 @@ const Sidebar = ({ collapsed = false, onToggleCollapse, onNavigate, mobile = fal
             <RecentNotes onNavigate={onNavigate} />
           </>
         )}
-
-        <SectionLabel collapsed={collapsed}>Community</SectionLabel>
-        <NavItem to="/community" icon={Newspaper} label="Posts" collapsed={collapsed} onNavigate={onNavigate} />
-        <NavItem to="/interests" icon={Tags} label="Interests" collapsed={collapsed} onNavigate={onNavigate} />
 
         {isAdmin && (
           <>

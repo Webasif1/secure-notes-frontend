@@ -15,11 +15,10 @@ React frontend for the **SecureNotes API**: a secure note-taking app with user a
 - Create / edit notes with validation, `Ctrl + S` to save, and a warning before leaving with unsaved changes
 - Note details page, with a confirmation dialog before deleting
 - Sidebar with the 5 most recent notes. It collapses on desktop and becomes a drawer on mobile
-- Community posts, posts by user (aggregation scenario 2) and users grouped by interests (scenario 1)
 - Light / dark mode, saved in `localStorage`, following the system theme by default
 
 **Admins**
-- Overview cards with real totals from the API (users, notes, posts)
+- Overview cards with real totals from the API (users, notes)
 - Users table (cards on mobile): pagination, add / edit / remove with confirmation, role changes (an admin can't remove their own admin role)
 - Everyone's notes with pagination and read-only note details
 
@@ -45,7 +44,6 @@ src/
     layout/            AppLayout, Sidebar, Topbar, ProfileMenu
     notes/             notes list, note details, note editor
     admin/             overview + users, all users' notes
-    community/         posts, posts by user, interests
 ```
 
 Each feature keeps its API calls in `services/*.api.js`, separate from the UI.

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileText, Newspaper, UserPlus, Users } from "lucide-react";
+import { FileText, UserPlus, Users } from "lucide-react";
 import PageTransition from "../../shared/components/PageTransition";
 import PageHeader from "../../shared/components/PageHeader";
 import Button from "../../shared/components/Button";
@@ -81,10 +81,9 @@ const AdminDashboard = () => {
           Couldn't load the overview: {overview.error}
         </p>
       ) : (
-        <div className="mb-10 grid grid-cols-3 gap-3 sm:gap-4">
+        <div className="mb-10 grid grid-cols-2 gap-3 sm:gap-4">
           <StatCard index={0} icon={Users} label="Users" value={overview.data?.users} loading={overview.loading} />
           <StatCard index={1} icon={FileText} label="Notes" value={overview.data?.notes} loading={overview.loading} />
-          <StatCard index={2} icon={Newspaper} label="Posts" value={overview.data?.posts} loading={overview.loading} />
         </div>
       )}
 

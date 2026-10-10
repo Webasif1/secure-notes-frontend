@@ -9,9 +9,6 @@ import NoteDetails from "../features/notes/pages/NoteDetails";
 import NoteEditor from "../features/notes/pages/NoteEditor";
 import AdminDashboard from "../features/admin/pages/AdminDashboard";
 import AdminNotes from "../features/admin/pages/AdminNotes";
-import Posts from "../features/community/pages/Posts";
-import UserPosts from "../features/community/pages/UserPosts";
-import Interests from "../features/community/pages/Interests";
 import NotFound from "./NotFound";
 
 export const router = createBrowserRouter([
@@ -44,9 +41,6 @@ export const router = createBrowserRouter([
       { path: "notes/new", element: <NoteEditor key="new" /> },
       { path: "notes/:id", element: <NoteDetails /> },
       { path: "notes/:id/edit", element: <NoteEditor key="edit" /> },
-      { path: "community", element: <Posts /> },
-      { path: "community/user/:userId", element: <UserPosts /> },
-      { path: "interests", element: <Interests /> },
       {
         path: "admin",
         element: (

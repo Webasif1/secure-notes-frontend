@@ -27,14 +27,12 @@ export const getAllNotes = async ({ page = 1, limit = 10 } = {}) => {
 
 // overview numbers come from the real "total" of each list (limit=1 keeps it cheap)
 export const getOverview = async () => {
-  const [users, notes, posts] = await Promise.all([
+  const [users, notes] = await Promise.all([
     api.get("/users", { params: { limit: 1 } }),
     api.get("/notes/all", { params: { limit: 1 } }),
-    api.get("/posts", { params: { limit: 1 } }),
   ]);
   return {
     users: users.data.pagination.total,
     notes: notes.data.pagination.total,
-    posts: posts.data.pagination.total,
   };
 };
