@@ -11,18 +11,17 @@ React frontend for the **SecureNotes API**: a secure note-taking app with user a
 
 **Users**
 - Register / login with client-side validation, show / hide password, clear error states
-- Notes workspace: grid or list view (remembered), search, pagination, note count, skeleton loading, empty states
+- Notes workspace: grid or list view (remembered), pagination, note count, skeleton loading, empty states
 - Create / edit notes with validation, `Ctrl + S` to save, and a warning before leaving with unsaved changes
 - Note details page, with a confirmation dialog before deleting
 - Sidebar with the 5 most recent notes. It collapses on desktop and becomes a drawer on mobile
 - Community posts, posts by user (aggregation scenario 2) and users grouped by interests (scenario 1)
-- Profile settings: name, interests (tag input), password change
 - Light / dark mode, saved in `localStorage`, following the system theme by default
 
 **Admins**
 - Overview cards with real totals from the API (users, notes, posts)
-- Users table (cards on mobile): search, pagination, add / edit / remove with confirmation, role changes (an admin can't remove their own admin role)
-- Everyone's notes with search, a filter by user, and read-only note details
+- Users table (cards on mobile): pagination, add / edit / remove with confirmation, role changes (an admin can't remove their own admin role)
+- Everyone's notes with pagination and read-only note details
 
 ## How it talks to the backend
 
@@ -47,7 +46,6 @@ src/
     notes/             notes list, note details, note editor
     admin/             overview + users, all users' notes
     community/         posts, posts by user, interests
-    profile/           profile settings
 ```
 
 Each feature keeps its API calls in `services/*.api.js`, separate from the UI.
@@ -56,7 +54,7 @@ Each feature keeps its API calls in `services/*.api.js`, separate from the UI.
 
 - Semantic HTML, labelled inputs, `aria-invalid` and linked error messages
 - Visible focus rings, keyboard support for everything. Modals trap focus, close on `Esc` and return focus when closed
-- Skip-to-content link; press `/` to focus search
+- Skip-to-content link
 - Animations are short (150–300 ms) and turn off when the OS has "reduce motion" enabled (`MotionConfig reducedMotion="user"` + CSS)
 
 ## Run locally

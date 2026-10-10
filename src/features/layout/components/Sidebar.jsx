@@ -150,9 +150,9 @@ const Sidebar = ({ collapsed = false, onToggleCollapse, onNavigate, mobile = fal
       <div className={`border-t border-border p-3 ${collapsed ? "flex flex-col items-center gap-2" : ""}`}>
         {collapsed ? (
           <>
-            <Link to="/profile" onClick={onNavigate} aria-label="Profile" title={user.name}>
+            <span title={user.name}>
               <Avatar name={user.name} size="sm" />
-            </Link>
+            </span>
             <button
               onClick={logout}
               aria-label="Log out"
@@ -164,17 +164,13 @@ const Sidebar = ({ collapsed = false, onToggleCollapse, onNavigate, mobile = fal
           </>
         ) : (
           <div className="flex items-center gap-2.5">
-            <Link
-              to="/profile"
-              onClick={onNavigate}
-              className="flex min-w-0 flex-1 items-center gap-2.5 rounded-lg p-1.5 transition-colors hover:bg-subtle"
-            >
+            <div className="flex min-w-0 flex-1 items-center gap-2.5 p-1.5">
               <Avatar name={user.name} size="sm" />
               <span className="min-w-0">
                 <span className="block truncate text-sm font-medium text-text">{user.name}</span>
                 <span className="block truncate text-xs text-muted">{user.email}</span>
               </span>
-            </Link>
+            </div>
             <button
               onClick={logout}
               aria-label="Log out"

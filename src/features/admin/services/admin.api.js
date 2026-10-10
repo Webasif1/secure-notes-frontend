@@ -1,7 +1,7 @@
 import api from "../../../lib/api";
 
-export const getUsers = async ({ page = 1, limit = 10, search = "" } = {}) => {
-  const res = await api.get("/users", { params: { page, limit, search: search || undefined } });
+export const getUsers = async ({ page = 1, limit = 10 } = {}) => {
+  const res = await api.get("/users", { params: { page, limit } });
   return res.data;
 };
 
@@ -20,10 +20,8 @@ export const deleteUser = async (id) => {
   return res.data;
 };
 
-export const getAllNotes = async ({ page = 1, limit = 10, search = "", owner = "" } = {}) => {
-  const res = await api.get("/notes/all", {
-    params: { page, limit, search: search || undefined, owner: owner || undefined },
-  });
+export const getAllNotes = async ({ page = 1, limit = 10 } = {}) => {
+  const res = await api.get("/notes/all", { params: { page, limit } });
   return res.data;
 };
 

@@ -10,11 +10,6 @@ export const createPost = async ({ title, body }) => {
   return res.data;
 };
 
-export const deletePost = async (id) => {
-  const res = await api.delete(`/posts/${id}`);
-  return res.data;
-};
-
 // aggregation scenario 2 ($lookup)
 export const getPostsByUser = async (userId, { page = 1, limit = 10 } = {}) => {
   const res = await api.get(`/posts/user/${userId}`, { params: { page, limit } });

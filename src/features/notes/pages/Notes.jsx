@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { FileText, Plus, SearchX } from "lucide-react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FileText, Plus } from "lucide-react";
 import PageTransition from "../../shared/components/PageTransition";
 import Button from "../../shared/components/Button";
 import Pagination from "../../shared/components/Pagination";
@@ -9,7 +9,6 @@ import NoteGrid, { NoteGridSkeleton } from "../components/NoteGrid";
 import ViewToggle from "../components/ViewToggle";
 import { useViewMode } from "../hooks/useViewMode";
 import { useFetch } from "../../shared/hooks/useFetch";
-import { useDebounce } from "../../shared/hooks/useDebounce";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { getMyNotes } from "../services/note.api";
 import { greeting } from "../utils";
@@ -19,18 +18,10 @@ const PAGE_SIZE = 12;
 const Notes = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
-  const [params] = useSearchParams();
-  const search = useDebounce(params.get("q") || "");
   const [page, setPage] = useState(1);
   const [view, setView] = useViewMode();
 
-  // new search -> back to page 1
-  useEffect(() => setPage(1), [search]);
-
-  const { data, loading, error, reload } = useFetch(
-    () => getMyNotes({ page, limit: PAGE_SIZE, search }),
-    [page, search],
-  );
+  const { data, loading, error, reload } = useFetch(() => getMyNotes({ page, limit: PAGE_SIZE }), [page]);
 
   const notes = data?.notes || [];
   const total = data?.pagination.total ?? 0;
@@ -49,12 +40,12 @@ const Notes = () => {
             {greeting()}, {firstName}
           </p>
           <h1 className="mt-1 text-2xl font-semibold tracking-tight text-text">
-            {search ? `Results for "${search}"` : "All notes"}
+            All notes
           </h1>
           <p className="mt-1 text-sm text-muted" aria-live="polite">
             {loading && !data
               ? "Loading your notes..."
-              : `${total} ${total === 1 ? "note" : "notes"}${search ? " found" : ""}`}
+              : `${total} ${total === 1 ? "note" : "notes"}`}
           </p>
         </div>
         <ViewToggle view={view} onChange={setView} />
@@ -65,19 +56,7 @@ const Notes = () => {
       ) : loading && !data ? (
         <NoteGridSkeleton view={view} />
       ) : notes.length === 0 ? (
-        search ? (
-          <EmptyState
-            icon={SearchX}
-            title="No matching notes"
-            description={`Nothing in your notes matches "${search}". Try another word.`}
-            action={
-              <Button variant="secondary" onClick={() => navigate("/notes")}>
-                Clear search
-              </Button>
-            }
-          />
-        ) : (
-          <EmptyState
+        <EmptyState
             icon={FileText}
             title="Write your first note"
             description="Capture ideas, to-dos or anything you want to keep safe. Only you (and admins) can see your notes."
@@ -87,7 +66,6 @@ const Notes = () => {
               </Button>
             }
           />
-        )
       ) : (
         <div className={`transition-opacity duration-150 ${loading ? "opacity-60" : ""}`}>
           <NoteGrid notes={notes} view={view} />

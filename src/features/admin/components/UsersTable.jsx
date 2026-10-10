@@ -1,33 +1,24 @@
-import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { FileText, Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import Avatar from "../../shared/components/Avatar";
 import Badge from "../../shared/components/Badge";
 import { formatDate } from "../../notes/utils";
 
-const IconAction = ({ label, onClick, to, danger, children }) => {
-  const className = `flex h-8 w-8 items-center justify-center rounded-lg text-muted transition-colors ${
-    danger ? "hover:bg-danger-soft hover:text-danger" : "hover:bg-subtle hover:text-text"
-  }`;
-  return to ? (
-    <Link to={to} aria-label={label} title={label} className={className}>
-      {children}
-    </Link>
-  ) : (
-    <button onClick={onClick} aria-label={label} title={label} className={className}>
-      {children}
-    </button>
-  );
-};
+const IconAction = ({ label, onClick, danger, children }) => (
+  <button
+    onClick={onClick}
+    aria-label={label}
+    title={label}
+    className={`flex h-8 w-8 items-center justify-center rounded-lg text-muted transition-colors ${
+      danger ? "hover:bg-danger-soft hover:text-danger" : "hover:bg-subtle hover:text-text"
+    }`}
+  >
+    {children}
+  </button>
+);
 
 const Actions = ({ u, currentUserId, onEdit, onDelete }) => (
   <div className="flex items-center justify-end gap-1">
-    <IconAction
-      label={`View ${u.name}'s notes`}
-      to={`/admin/notes?owner=${u._id}&name=${encodeURIComponent(u.name)}`}
-    >
-      <FileText size={15} />
-    </IconAction>
     <IconAction label={`Edit ${u.name}`} onClick={() => onEdit(u)}>
       <Pencil size={15} />
     </IconAction>

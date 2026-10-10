@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
-import { FileText, Newspaper, UserPlus, Users, SearchX } from "lucide-react";
+import { useState } from "react";
+import { FileText, Newspaper, UserPlus, Users } from "lucide-react";
 import PageTransition from "../../shared/components/PageTransition";
 import PageHeader from "../../shared/components/PageHeader";
 import Button from "../../shared/components/Button";
-import SearchInput from "../../shared/components/SearchInput";
 import Pagination from "../../shared/components/Pagination";
 import ConfirmDialog from "../../shared/components/ConfirmDialog";
 import { EmptyState, ErrorState } from "../../shared/components/States";
 import { useToast } from "../../shared/components/Toast";
 import { useFetch } from "../../shared/hooks/useFetch";
-import { useDebounce } from "../../shared/hooks/useDebounce";
 import { useAuth } from "../../auth/hooks/useAuth";
 import { getErrorMessage } from "../../../lib/api";
 import StatCard from "../components/StatCard";
@@ -20,18 +18,14 @@ import { deleteUser, getOverview, getUsers } from "../services/admin.api";
 const AdminDashboard = () => {
   const { user: me, setUser } = useAuth();
   const toast = useToast();
-  const [searchText, setSearchText] = useState("");
-  const search = useDebounce(searchText);
   const [page, setPage] = useState(1);
   const [formOpen, setFormOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [toDelete, setToDelete] = useState(null);
   const [deleting, setDeleting] = useState(false);
 
-  useEffect(() => setPage(1), [search]);
-
   const overview = useFetch(getOverview, []);
-  const users = useFetch(() => getUsers({ page, limit: 10, search }), [page, search]);
+  const users = useFetch(() => getUsers({ page, limit: 10 }), [page]);
 
   const openAdd = () => {
     setEditing(null);
@@ -95,22 +89,13 @@ const AdminDashboard = () => {
       )}
 
       <section aria-labelledby="users-heading">
-        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 id="users-heading" className="text-lg font-semibold text-text">
-              Users
-            </h2>
-            <p className="text-sm text-muted">
-              {users.data ? `${users.data.pagination.total} ${search ? "found" : "in total"}` : " "}
-            </p>
-          </div>
-          <SearchInput
-            value={searchText}
-            onChange={setSearchText}
-            placeholder="Search name or email..."
-            label="Search users"
-            className="sm:w-72"
-          />
+        <div className="mb-4">
+          <h2 id="users-heading" className="text-lg font-semibold text-text">
+            Users
+          </h2>
+          <p className="text-sm text-muted">
+            {users.data ? `${users.data.pagination.total} in total` : " "}
+          </p>
         </div>
 
         {users.error ? (
@@ -118,11 +103,7 @@ const AdminDashboard = () => {
         ) : users.loading && !users.data ? (
           <UsersTableSkeleton />
         ) : list.length === 0 ? (
-          <EmptyState
-            icon={SearchX}
-            title="No users found"
-            description={search ? `No user matches "${search}".` : "There are no users yet."}
-          />
+          <EmptyState icon={Users} title="No users yet" description="Add the first user with the button above." />
         ) : (
           <div className={`transition-opacity ${users.loading ? "opacity-60" : ""}`}>
             <UsersTable users={list} currentUserId={me.id} onEdit={openEdit} onDelete={setToDelete} />

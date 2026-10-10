@@ -29,7 +29,7 @@ export const NoteGridSkeleton = ({ view = "grid", count = 6 }) => (
 
 const NoteGrid = ({ notes, view = "grid", showOwner = false }) => (
   <motion.ul
-    // key makes the stagger animation run again for each new page / search
+    // key makes the stagger animation run again for each new page
     key={notes.map((n) => n._id).join()}
     variants={container}
     initial="hidden"

@@ -3,8 +3,8 @@ import api from "../../../lib/api";
 // sidebar "Recent" list listens to this to refresh itself
 const notifyChange = () => window.dispatchEvent(new Event("notes:changed"));
 
-export const getMyNotes = async ({ page = 1, limit = 12, search = "" } = {}) => {
-  const res = await api.get("/notes", { params: { page, limit, search: search || undefined } });
+export const getMyNotes = async ({ page = 1, limit = 12 } = {}) => {
+  const res = await api.get("/notes", { params: { page, limit } });
   return res.data;
 };
 

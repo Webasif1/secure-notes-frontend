@@ -3,7 +3,7 @@ import { getErrorMessage } from "../../../lib/api";
 
 /**
  * runs an async loader and keeps { data, loading, error }
- * ignores old responses if the inputs changed meanwhile (fast typing in search)
+ * ignores old responses if the inputs changed meanwhile (fast page changes)
  */
 export function useFetch(loader, deps) {
   const [data, setData] = useState(null);

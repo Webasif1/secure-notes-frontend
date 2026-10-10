@@ -1,11 +1,11 @@
 import { motion } from "motion/react";
-import { Lock, Search, Users } from "lucide-react";
+import { Layers, Lock, Users } from "lucide-react";
 import Logo from "../../layout/components/Logo";
 import ThemeToggle from "../../layout/components/ThemeToggle";
 
 const features = [
   { icon: Lock, text: "Passwords hashed with bcrypt, sessions secured with JWT" },
-  { icon: Search, text: "Find any note instantly with search" },
+  { icon: Layers, text: "Fast, paginated lists backed by database indexes" },
   { icon: Users, text: "Role-based access for users and admins" },
 ];
 

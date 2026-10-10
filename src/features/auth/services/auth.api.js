@@ -19,8 +19,3 @@ export const getMe = async () => {
   const res = await api.get("/auth/get-me");
   return res.data;
 };
-
-export const updateMe = async (data) => {
-  const res = await api.patch("/auth/get-me", data);
-  return res.data;
-};

@@ -20,15 +20,7 @@ const Interests = () => {
     <PageTransition>
       <PageHeader
         title="Interests"
-        description="People grouped by what they're into. Add your own interests on your profile."
-        actions={
-          <Link
-            to="/profile"
-            className="inline-flex h-10 items-center rounded-lg border border-border bg-surface px-4 text-sm font-medium text-text transition-colors hover:bg-subtle"
-          >
-            Edit my interests
-          </Link>
-        }
+        description="People grouped by what they're into. Interests are added when registering, or by an admin."
       />
 
       {error ? (
@@ -43,7 +35,7 @@ const Interests = () => {
           ))}
         </div>
       ) : groups.length === 0 ? (
-        <EmptyState icon={Tags} title="No interests yet" description="Nobody has added interests to their profile yet." />
+        <EmptyState icon={Tags} title="No interests yet" description="Nobody has added interests yet." />
       ) : (
         <>
           <ul className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ${loading ? "opacity-60" : ""}`}>

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "motion/react";
-import { LogOut, Moon, Sun, UserRound } from "lucide-react";
+import { LogOut, Moon, Sun } from "lucide-react";
 import Avatar from "../../shared/components/Avatar";
 import Badge from "../../shared/components/Badge";
 import { useAuth } from "../../auth/hooks/useAuth";
@@ -59,9 +58,6 @@ const ProfileMenu = () => {
               <Badge tone={user.role === "admin" ? "primary" : "neutral"}>{user.role}</Badge>
             </div>
             <div className="my-1 h-px bg-border" />
-            <Link role="menuitem" to="/profile" className={itemClass} onClick={() => setOpen(false)}>
-              <UserRound size={16} className="text-muted" /> Profile settings
-            </Link>
             <button role="menuitem" className={itemClass} onClick={toggleTheme}>
               {theme === "dark" ? <Sun size={16} className="text-muted" /> : <Moon size={16} className="text-muted" />}
               {theme === "dark" ? "Light mode" : "Dark mode"}
