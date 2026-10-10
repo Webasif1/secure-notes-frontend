@@ -15,13 +15,4 @@ export default defineConfig({
       },
     },
   },
-  server: {
-    // in development "/api" requests go to the backend
-    proxy: {
-      "/api": {
-        target: "http://localhost:3000",
-        changeOrigin: true,
-      },
-    },
-  },
 });
