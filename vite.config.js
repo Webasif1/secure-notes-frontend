@@ -15,13 +15,4 @@ export default defineConfig({
       },
     },
   },
-  server: {
-    // in development "/api" requests go to the backend
-    proxy: {
-      "/api": {
-        target: "https://secure-notes-backend-uk39.onrender.com/ ",
-        changeOrigin: true,
-      },
-    },
-  },
 });

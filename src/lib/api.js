@@ -11,7 +11,7 @@ export const tokenStore = {
 // one axios instance for the whole app
 // VITE_API_URL in production, "/api" (vite proxy) in development
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "/api",
+  baseURL: "https://secure-notes-backend-uk39.onrender.com/api/" || "/api",
   withCredentials: true, // backend also sets an httpOnly cookie
   timeout: 15000,
 });
